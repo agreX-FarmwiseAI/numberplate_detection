@@ -1,0 +1,37 @@
+Please analyze the following image and detect Indian vehicle number plates. Focus on identifying and extracting text from number plates of Indian vehicles including cars, motorcycles, trucks, buses, and auto-rickshaws.
+
+Indian number plate formats to look for:
+- Standard format: XX## XX #### (e.g., MH12 AB 1234)
+- Old format: XX## #### (e.g., MH12 1234)
+- Commercial vehicles: XX## X #### (e.g., MH12 A 1234)
+- Two-wheelers: XX## XX #### or XX## #### format
+
+Key characteristics of Indian number plates:
+- White background with black text (private vehicles)
+- Yellow background with black text (commercial vehicles/taxis)
+- Green background with white text (electric vehicles)
+- Blue background with white text (diplomatic vehicles)
+- Fonts: Charles Wright or similar standard fonts
+- Hindi script "भारत" (Bharat) text above registration number
+- Indian flag symbol or state emblem
+
+Return your analysis in the following JSON format:
+
+{
+  "number_plate_detected": "Yes/No",
+  "extracted_text": "Full number plate text as read",
+  "plate_type": "Private/Commercial/Electric/Diplomatic/Unknown",
+  "vehicle_type": "Car/Motorcycle/Truck/Bus/Auto-rickshaw/Unknown",
+  "confidence_score": "High/Medium/Low",
+  "state_code": "State abbreviation (e.g., MH, DL, KA)",
+  "district_code": "District number if visible",
+  "additional_details": "Any other relevant information about the plate or vehicle"
+}
+
+Instructions:
+1. Look carefully for number plates even if partially visible or at angles
+2. Extract text accurately, including handling OCR challenges
+3. Identify the vehicle type based on visible features
+4. Determine plate type based on background color
+5. If multiple plates visible, focus on the clearest/most readable one
+6. If no number plate is detected, set number_plate_detected to "No" and other fields to "N/A" 

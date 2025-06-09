@@ -3,3 +3,4 @@ pandas
 google-generativeai
 tqdm
 Pillow
+opencv-python

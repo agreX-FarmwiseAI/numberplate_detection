@@ -1,0 +1,60 @@
+Please analyze the following video and detect Indian vehicle number plates throughout the video. Focus on identifying all instances where number plates are clearly visible and provide precise timestamp information for each detection.
+
+Indian number plate formats to look for:
+- Standard format: XX## XX #### (e.g., MH12 AB 1234)
+- Old format: XX## #### (e.g., MH12 1234)
+- Commercial vehicles: XX## X #### (e.g., MH12 A 1234)
+- Two-wheelers: XX## XX #### or XX## #### format
+
+Key characteristics of Indian number plates:
+- White background with black text (private vehicles)
+- Yellow background with black text (commercial vehicles/taxis)
+- Green background with white text (electric vehicles)
+- Blue background with white text (diplomatic vehicles)
+- Fonts: Charles Wright or similar standard fonts
+- Hindi script "भारत" (Bharat) text above registration number
+- Indian flag symbol or state emblem
+
+Return your analysis in the following JSON format with an array of detected vehicles:
+
+{
+  "total_vehicles_detected": number,
+  "video_duration_seconds": total_video_duration,
+  "vehicles": [
+    {
+      "vehicle_id": "unique_identifier_for_this_vehicle",
+      "best_timestamp_seconds": exact_time_in_decimal_seconds_when_plate_is_absolutely_clearest,
+      "number_plate_detected": "Yes/No",
+      "extracted_text": "Full number plate text as read",
+      "plate_type": "Private/Commercial/Electric/Diplomatic/Unknown",
+      "vehicle_type": "Car/Motorcycle/Truck/Bus/Auto-rickshaw/Unknown",
+      "confidence_score": "High/Medium/Low",
+      "state_code": "State abbreviation (e.g., MH, DL, KA)",
+      "district_code": "District number if visible",
+      "additional_details": "Any other relevant information about the plate or vehicle",
+      "clarity_reason": "Brief explanation of why this specific timestamp provides the best plate visibility"
+    }
+  ]
+}
+
+Critical Instructions:
+1. Analyze the ENTIRE video frame by frame to detect all vehicles with visible number plates
+2. For each unique vehicle detected, identify the SINGLE BEST timestamp where the number plate has MAXIMUM clarity and readability
+3. Only provide ONE timestamp per vehicle - the absolute best moment for plate visibility
+4. Consider factors like: angle, distance, lighting, motion blur, obstruction when determining the best timestamp
+5. Provide precise timestamps in DECIMAL SECONDS format only (e.g., 15.7, 42.3, 75.5)
+   - Use decimal seconds, NOT minutes:seconds format
+   - Example: For 1 minute 15 seconds, use 75.0 (not 1.15)
+   - Example: For 2 minutes 30 seconds, use 150.0 (not 2.30)
+6. If the same vehicle appears multiple times in the video, only report the single clearest instance
+7. Each vehicle should have exactly one best_timestamp_seconds value
+8. If multiple vehicles appear simultaneously, list them as separate entries with their individual best timestamps
+9. If no vehicles with readable number plates are detected, return an empty vehicles array
+10. Prioritize clarity and readability over quantity - better to have fewer high-quality detections
+
+CRITICAL TIMESTAMP FORMAT REMINDER:
+- Always use DECIMAL SECONDS (75.5) never MM:SS format (1:15)
+- For 1 minute 15 seconds: use 75.0
+- For 2 minutes 30 seconds: use 150.0
+- For 45 seconds: use 45.0
+- For 3.5 seconds: use 3.5 

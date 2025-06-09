@@ -3,4 +3,4 @@ pandas
 google-generativeai
 tqdm
 Pillow
-opencv-python
+opencv-python-headless
